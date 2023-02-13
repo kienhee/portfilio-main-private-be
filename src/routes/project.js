@@ -6,7 +6,6 @@ const projectController = require("../controllers/projectController");
 
 router.post(
   "/project/create-project",
-  projectController.upload.single("urlImage"),
-  projectController.handleCreateProject,
+  projectController.handleCreateProject
 );
 module.exports = router;

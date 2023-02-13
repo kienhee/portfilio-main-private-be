@@ -23,7 +23,7 @@ const register = async (req, res) => {
       return controller.response(res, "Vui lòng nhập đầy đủ thông tin", 200, [], false);
     }
   } catch (error) {
-    controller.response(res, error.message, error.status, response, false);
+    return controller.response(res, error.message, error.status, response, false);
   }
 };
 const login = async (req, res) => {
@@ -48,7 +48,7 @@ const login = async (req, res) => {
       return controller.response(res, "Vui lòng nhập đầy đủ thông tin", 200, [], false);
     }
   } catch (error) {
-    controller.response(res, error.message, error.status, response, false);
+    return controller.response(res, error.message, error.status, response, false);
   }
 };
 module.exports = { register, login };

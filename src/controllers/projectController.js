@@ -2,18 +2,25 @@
 
 const Controller = require("./Controller");
 const controller = new Controller("projects");
-const multer = require("multer");
-const project = require("../models/project");
+const project = require("../models/project")
 
+const handleCreateProject = async (req, res) => {
+  try {
+    let { title, content, github, urlImage } = req.body;
+    if (title && content && github && urlImage) {
+      let response = await project.create({ title, content, github, urlImage })
+      if (response) {
+        return controller.response(res, "Tạo Dự án thành công", 200, response, true);
+      } else {
+        return controller.response(res, "Tạo Dự án không thành công", 200, response, false);
+      }
 
-const upload = multer({ dest: "./src/public/uploads/" });
-
-const handleCreateProject = (req, res) => {
-  console.log(req.file);
-  if (!req.file) {
-    return res.send("Please upload a file");
+    } else {
+      return controller.response(res, "Vui lòng nhập đầy đủ thông tin", 200, [], false);
+    }
+  } catch (error) {
+    return controller.response(res, error.message, error.status, response, false);
   }
-  res.send("File uploaded");
 }
 
-module.exports = { upload, handleCreateProject };
+module.exports = { handleCreateProject };
